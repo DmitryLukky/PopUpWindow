@@ -35,13 +35,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun btnClick() {
         btnShowPopUp.setOnClickListener {
-            dismissPopup() // Закрываем PopUp если он открыт и не открываем снова
-            popUpWindow = showPopUp() // Показываем PopUp
-            popUpWindow?.isOutsideTouchable =
-                true // Указывает, будет ли всплывающее окно получать информацию о событиях касания за пределами его окна
-            popUpWindow?.isFocusable = true // Может ли всплывающее окно захватить фокус
-            popUpWindow?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // Задает фон, который можно рисовать для этого всплывающего окна. Фон можно установить на null
-            popUpWindow?.showAsDropDown(btnShowPopUp) // PopUp появляется от левого нижнего угла кнопки
+            // Закрываем PopUp если он открыт и не открываем снова
+            dismissPopup()
+            // Показываем PopUp
+            popUpWindow = showPopUp()
+            // Указывает, будет ли всплывающее окно получать информацию о событиях касания за пределами его окна
+            popUpWindow?.isOutsideTouchable = true
+            // Может ли всплывающее окно захватить фокус
+            popUpWindow?.isFocusable = true
+            // Задаём высоту (без этого параметра не отображается тень)
+            popUpWindow!!.elevation = 50F
+            // Задает фон, который можно рисовать для этого всплывающего окна. Фон можно установить на null
+            // Без этоого на Андроид 5 окно не будет закрывать при нажатии на пустое место экрана.
+            popUpWindow?.setBackgroundDrawable(ColorDrawable(Color.WHITE)) // Без этоого на Андроид 5 окно не будет закрывать при нажатии на пустое место экрана.
+            // PopUp появляется от левого нижнего угла кнопки
+            popUpWindow?.showAsDropDown(btnShowPopUp)
         }
     }
 
@@ -49,6 +57,7 @@ class MainActivity : AppCompatActivity() {
     private fun dismissPopup() {
         popUpWindow?.let {
             if (it.isShowing) {
+                Log.d("TAG", "${it.isShowing}")
                 it.dismiss()
 
                 // Меняем иконку в Button
