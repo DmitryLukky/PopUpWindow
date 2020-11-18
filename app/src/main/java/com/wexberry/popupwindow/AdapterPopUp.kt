@@ -45,7 +45,7 @@ class AdapterPopUp(val context: Context) : RecyclerView.Adapter<AdapterPopUp.MyV
         }
         // Устанавливаем цвет текста
         if (item.defColorText != 0) {
-            holder.nameItem.setTextColor(ContextCompat.getColorStateList(context, item.defColorText))//ContextCompat.getColorStateList(context, item.defColorText)
+            holder.nameItem.setTextColor(item.defColorText)//ContextCompat.getColorStateList(context, item.defColorText)
         }
         // Устанавливаем цвет фона ячейки
         if (item.defColorBackground != 0) {
@@ -62,7 +62,7 @@ class AdapterPopUp(val context: Context) : RecyclerView.Adapter<AdapterPopUp.MyV
 
             // Устанавливаем цвет текста выбранной ячейки
             if (item.selectColorText != 0) {
-                holder.nameItem.setTextColor(ContextCompat.getColorStateList(context, item.selectColorText))
+                holder.nameItem.setTextColor(item.selectColorText)
             }
             // Устанавливаем цвет фона выбранной ячейки
             if (item.selectColorBackground != 0) {

@@ -1,14 +1,15 @@
 package com.wexberry.popupwindow
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.View.OnTouchListener
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        onDismissListener()
         btnClick()
     }
 
@@ -31,6 +33,21 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
 
         dismissPopup()
+    }
+
+    // Попытка починить кнопку (отображение значка открыто/закрыто)
+    @SuppressLint("ClickableViewAccessibility")
+    fun onDismissListener(){
+        popUpWindow?.setTouchInterceptor(OnTouchListener { v, event ->
+            Log.d("POPUP", event.action.toString())
+            Log.d("POPUP", v.toString())
+            //if (event.action == MotionEvent.ACTION_OUTSIDE) {
+            if (event.action == MotionEvent.ACTION_OUTSIDE) {
+                dismissPopup()
+                return@OnTouchListener true
+            }
+            true
+        })
     }
 
     private fun btnClick() {
@@ -50,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             popUpWindow?.setBackgroundDrawable(ColorDrawable(Color.WHITE)) // Без этоого на Андроид 5 окно не будет закрывать при нажатии на пустое место экрана.
             // PopUp появляется от левого нижнего угла кнопки
             popUpWindow?.showAsDropDown(btnShowPopUp)
+            popUpWindow?.update(it, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
     }
 
