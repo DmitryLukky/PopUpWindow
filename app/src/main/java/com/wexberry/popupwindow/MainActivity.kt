@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             popUpWindow?.setBackgroundDrawable(ColorDrawable(Color.WHITE)) // Без этоого на Андроид 5 окно не будет закрывать при нажатии на пустое место экрана.
             // PopUp появляется от левого нижнего угла кнопки
             popUpWindow?.showAsDropDown(btnShowPopUp)
+
             popUpWindow?.update(it, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
     }
